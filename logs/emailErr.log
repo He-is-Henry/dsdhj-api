@@ -1,0 +1,14 @@
+65dc0aba-7dda-4b39-b873-f451ad7f643f	[2025-07-12T08:47:09.459Z]	Failed to send emails:	manuscript submission	Error: connect ETIMEDOUT 64.233.166.108:587	undefined
+17d40456-832f-43fa-b474-90845f19d1ed	[2025-07-12T09:37:34.499Z]	Failed to send emails:	manuscript submission	Error: connect ETIMEDOUT 142.251.15.108:587	undefined
+66c219f5-a619-4afc-9e86-bf4575a6c215	[2025-07-12T09:43:25.960Z]	Failed to send emails:	manuscript submission	Error: connect ETIMEDOUT 142.251.15.108:587	68722e286052d10d040c490a
+4fe725d7-5455-4102-a514-76ea93e42ecf	[2025-07-12T10:56:58.624Z]	Failed to send emails:	manuscript submission	Error: connect ETIMEDOUT 142.251.15.109:587	68723f656052d10d040c493d
+8d3e547f-01c0-46ca-9037-89c24fc13202	[2025-07-12T11:04:53.607Z]	Failed to send emails:	manuscript submission	Error: connect ETIMEDOUT 142.251.15.108:587	687241406052d10d040c494a
+202c9274-07f2-45d8-92db-d52708c52b41	[2025-07-12T11:13:52.986Z]	Failed to send emails:	manuscript submission	Error: connect ETIMEDOUT 64.233.166.109:587	6872435b6052d10d040c494f
+ea5ed179-bc96-4ad6-a3d7-44f928719329	[2025-07-12T11:44:47.371Z]	Failed to send emails:	manuscript submission	Error: connect ETIMEDOUT 64.233.166.109:587	68724a9a6052d10d040c4964
+3f2c37c9-8643-4bf8-b1ad-d9a6f2ecf653	[2025-07-12T15:59:00.961Z]	Failed to send emails:	manuscript submission	Error: connect ETIMEDOUT 64.233.166.109:587	6872862f933ecae63c03b46f
+44a11aa8-f39f-4d96-9f7b-4acbed26232a	[2025-07-12T16:03:39.384Z]	Failed to send emails:	manuscript submission	Error: connect ETIMEDOUT 64.233.166.109:587	68728746933ecae63c03b478
+8a990453-bc5a-430e-9ffd-2963d8f9076f	[2025-07-12T16:07:42.147Z]	Failed to send emails:	manuscript submission	Error: connect ETIMEDOUT 64.233.166.108:587	68728839933ecae63c03b47d
+b803a995-f687-42e4-93f0-05944bcf8b4d	[2025-07-12T16:31:49.866Z]	Failed to send emails:	manuscript submission	Error: connect ETIMEDOUT 64.233.166.109:587	68728de0c41b4d3b8d458043
+ea2df34b-7c86-4230-9c70-e5793c8ab611	[2025-07-12T19:02:44.459Z]	Failed to send emails:	manuscript submission	Error: connect ETIMEDOUT 64.233.166.109:468	6872b13ea24f6b116c6831b8
+454d485d-1a41-42ba-94cb-915a94b1e466	[2025-07-13T16:07:19.930Z]	Failed to send message:	Error: Unexpected socket close	68728de0c41b4d3b8d458043
+434528bb-d3e3-41ef-8959-e4f327da6358	[2025-07-13T16:08:00.172Z]	Failed to send message:	Error: Unexpected socket close	68728de0c41b4d3b8d458043
