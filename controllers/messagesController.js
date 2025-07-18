@@ -29,7 +29,8 @@ const getAllMessages = async (req, res) => {
 
 const replyMessage = async (req, res) => {
   console.log("replying");
-  const { name, reply, messageId } = req.body;
+  const { messageId } = req.params;
+  const { name, reply } = req.body;
   const user = req.user;
   const from = `"${user} from Delta State And Dental Health Journal" <ese.anibor@domainjournals.com">`;
   try {
@@ -75,4 +76,4 @@ const deleteMessage = async (req, res) => {
   }
 };
 
-module.exports = { newMessage, getAllMessages };
+module.exports = { newMessage, getAllMessages, replyMessage, deleteMessage };
