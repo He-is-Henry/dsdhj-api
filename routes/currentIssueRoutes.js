@@ -10,7 +10,8 @@ router
   .patch(verifyJWT, verifyRoles("admin"), currentIssueController.getNewIssue)
   .put(
     verifyJWT,
-    verifyRoles("admin", currentIssueController.toggleIssueStatus)
+    verifyRoles("admin"),
+    currentIssueController.toggleIssueStatus
   );
 
 module.exports = router;
