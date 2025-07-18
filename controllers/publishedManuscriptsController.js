@@ -18,9 +18,14 @@ const getCurrentIssueManuscripts = async (req, res) => {
   res.json(allManuscripts);
 };
 
-const getArchive = async (req, res) => {
-  const allManuscripts = await PublishedManuscript.find();
-  res.json(allManuscripts);
+const getManuscript = async (req, res) => {
+  const { id } = req.params;
+  const manuscript = await PublishedManuscript.findById(id);
+  res.json(manuscript);
 };
 
-module.exports = { generateCustomId, getCurrentIssueManuscripts, getArchive };
+module.exports = {
+  generateCustomId,
+  getCurrentIssueManuscripts,
+  getManuscript,
+};

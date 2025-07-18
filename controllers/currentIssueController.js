@@ -18,9 +18,15 @@ const getNewIssue = async (req, res) => {
 };
 
 const getCurrentIssue = async (req, res) => {
-  const { issue } = await CurrentIssue.findOne({}).lean();
+  const { issue, status } = await CurrentIssue.findOne({}).lean();
   console.log(issue);
-  res.json(issue);
+  res.json({ issue, status });
 };
 
-module.exports = { getNewIssue, getCurrentIssue };
+const toggleIssueStatus = async () => {
+  const currentIssue = await CurrentIssue.findOne({}).lean();
+  currentIssue.active = !currentIssue.active;
+  currentIssue.save();
+};
+
+module.exports = { getNewIssue, getCurrentIssue, toggleIssueStatus };
