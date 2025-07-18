@@ -66,7 +66,9 @@ const uploadFile = (req, res) => {
     if (!req?.file) {
       return res.status(400).json({ error: "No file uploaded" });
     }
+
     const fileUrl = req.file.path;
+    console.log(fileUrl);
     const extension = req.body.extension;
 
     return res.status(200).json({ url: fileUrl, extension });
