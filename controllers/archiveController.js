@@ -4,7 +4,7 @@ const addNewArchive = async (req, res) => {
   const { volume, issue, file } = req.body;
   if (isNaN(volume) || isNaN(issue))
     return res.status(400).json({ error: "Invalid volume or issue" });
-  const alreadyExistingArchive = await Archive.find({ volume, issue });
+  const alreadyExistingArchive = await Archive.findOne({ volume, issue });
   if (alreadyExistingArchive) await alreadyExistingArchive.deleteOne();
   await Archive.create({ volume, issue, file });
   const message = alreadyExistingArchive
