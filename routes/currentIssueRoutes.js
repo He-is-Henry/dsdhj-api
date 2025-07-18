@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const currentIssueController =
-  require("../controllers/currentIssueController").default;
+const currentIssueController = require("../controllers/currentIssueController");
 const verifyJWT = require("../middleware/verifyJWT");
 const verifyRoles = require("../middleware/verifyRoles");
 
