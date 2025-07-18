@@ -240,7 +240,7 @@ const deleteUser = async (req, res) => {
   const user = await User.findById(id);
   if (!user) return res.status(404).json({ error: "User not found" });
   if (user.roles.includes(admin))
-    return res.json({ error: "You can't delete a fellow admin" });
+    return res.status(403).json({ error: "You can't delete a fellow admin" });
   if (req.user.id.toString() === id.toString())
     return res.status(400).json({ error: "You cannot delete yourself" });
   const result = await user.deleteOne();
@@ -261,7 +261,7 @@ const handleNewRole = async (req, res) => {
   const roleCode = ROLES_LIST[role];
   if (user.roles.includes(roleCode))
     return res.status(400).json({ error: `User is already an ${role}` });
-  user.roles.push(role);
+  user.roles.push(roleCode);
   const result = await user.save();
   res.json(result);
 };
