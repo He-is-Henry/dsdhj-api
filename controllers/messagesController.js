@@ -31,8 +31,8 @@ const replyMessage = async (req, res) => {
   console.log("replying");
   const { messageId } = req.params;
   const { name, reply } = req.body;
-  const user = req.user;
-  const from = `"${user} from Delta State And Dental Health Journal" <ese.anibor@domainjournals.com">`;
+  const user = req.user.name;
+  const from = `${user} from Delta State And Dental Health Journal" <ese.anibor@domainjournals.com">`;
   try {
     const message = await Message.findById(messageId);
     console.log(message);
