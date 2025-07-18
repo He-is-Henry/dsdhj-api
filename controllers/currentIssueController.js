@@ -23,10 +23,11 @@ const getCurrentIssue = async (req, res) => {
   res.json({ issue, active });
 };
 
-const toggleIssueStatus = async () => {
+const toggleIssueStatus = async (req, res) => {
   const currentIssue = await CurrentIssue.findOne({}).lean();
   currentIssue.active = !currentIssue.active;
-  currentIssue.save();
+ const result = await currentIssue.save();
+ res.json(result)
 };
 
 module.exports = { getNewIssue, getCurrentIssue, toggleIssueStatus };
