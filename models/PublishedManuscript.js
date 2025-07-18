@@ -42,6 +42,7 @@ const publishedManuscriptSchema = new schema(
       type: Number,
       required: true,
     },
+    views: { type: Number, default: 0, required: true },
   },
   { timestamps: true }
 );
