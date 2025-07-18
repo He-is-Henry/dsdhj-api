@@ -7,12 +7,8 @@ const app = express();
 const corsOptions = require("./config/corsOptions");
 const connectDB = require("./config/dbConn");
 const { default: mongoose } = require("mongoose");
-const {
-  generateCustomId,
-} = require("./controllers/publishedManuscriptsController");
 
 connectDB();
-console.log(__dirname);
 
 app.use(express.urlencoded({ extended: false }));
 

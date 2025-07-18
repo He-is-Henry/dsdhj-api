@@ -36,9 +36,9 @@ const deleteFileFromCloudinary = async (req, res) => {
 const downloadFile = async (req, res) => {
   const fileId = req.query.url;
 
-  if (!fileId || !fileId.startsWith("https://res.cloudinary.com")) {
+  if (!fileId)
     return res.status(400).json({ error: "Invalid or missing file URL." });
-  }
+
   if (fileId.endsWith(".doc") || fileId.endsWith("docx"))
     return res.status(400).json({ error: "API download not necessary" });
   const rawFilename = path.basename(fileId);
@@ -61,8 +61,8 @@ const downloadFile = async (req, res) => {
 };
 
 const uploadFile = (req, res) => {
+  console.log("Trying to upload file");
   try {
-    console.log("Trying to upload file");
     if (!req?.file) {
       return res.status(400).json({ error: "No file uploaded" });
     }
