@@ -283,7 +283,7 @@ const handleRemoveRole = async (req, res) => {
   const roleCode = ROLES_LIST[role];
   if (!user.roles.includes(roleCode))
     return res.status(400).json({ error: `User is not an ${role}` });
-  user.roles = user.roles.filter((roleId) => roleId === role);
+  user.roles = user.roles.filter((roleId) => roleId !== roleCode);
   const result = await user.save();
   res.json(result);
 };
