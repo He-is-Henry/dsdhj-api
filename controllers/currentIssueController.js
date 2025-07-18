@@ -18,9 +18,9 @@ const getNewIssue = async (req, res) => {
 };
 
 const getCurrentIssue = async (req, res) => {
-  const { issue, status } = await CurrentIssue.findOne({}).lean();
+  const { issue, active } = await CurrentIssue.findOne({}).lean();
   console.log(issue);
-  res.json({ issue, status });
+  res.json({ issue, active });
 };
 
 const toggleIssueStatus = async () => {
