@@ -270,6 +270,10 @@ const handleRemoveRole = async (req, res) => {
   const { id } = req.params;
   const { role } = req.body;
   const allowedRoles = ["admin", "editor"];
+  if (role === "author")
+    res
+      .status(400)
+      .json({ error: "Cannot remove author's status, delete instead!" });
   if (!allowedRoles.includes(role))
     return res.status(400).json({ error: "Invalid role" });
   const user = await User.findById(id);
