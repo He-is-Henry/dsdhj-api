@@ -255,7 +255,7 @@ const handleNewRole = async (req, res) => {
   const allowedRoles = ["admin", "editor"];
   if (!allowedRoles.includes(role))
     return res.status(400).json({ error: "Invalid role" });
-  const user = User.findById(id);
+  const user = await User.findById(id);
   if (!user) return res.status(404).json({ error: "User not found" });
 
   const roleCode = ROLES_LIST[role];
@@ -272,7 +272,7 @@ const handleRemoveRole = async (req, res) => {
   const allowedRoles = ["admin", "editor"];
   if (!allowedRoles.includes(role))
     return res.status(400).json({ error: "Invalid role" });
-  const user = User.findById(id);
+  const user = await User.findById(id);
   if (!user) return res.status(404).json({ error: "User not found" });
   if (user.roles.includes(admin))
     res.status(401).json({ error: "You cannot demote an admin" });
