@@ -30,7 +30,7 @@ const getAllMessages = async (req, res) => {
 const replyMessage = async (req, res) => {
   console.log("replying");
   const { messageId } = req.params;
-  const { name, reply } = req.body;
+  const { reply } = req.body;
   const user = req.user.name;
   const from = `${user} from Delta State And Dental Health Journal" <ese.anibor@domainjournals.com">`;
   try {
@@ -44,7 +44,7 @@ const replyMessage = async (req, res) => {
       html: `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #ddd; border-radius: 8px; background: #f9f9f9;">
       <p> ${user} from Delta State And Dental Health Journal</p>
-        <p>Dear ${name}</p>
+        <p>Dear ${message.firstname}</p>
         <i>"${String(message.message).substring(0, 200)}"</i>
      
        <div> ${reply} </div>
