@@ -185,8 +185,8 @@ const handleInvite = async (req, res) => {
     await sendMail({
       to: email,
       subject: "You're Invited",
-      text: `You're invited to Delta State And Dental Health Journal Admin Panel. Click to join: ${link}`,
-      html: `<p>You've been invited to join the Delta State and Dental Health Journal Admin Panel as <strong>${role}</strong>.</p>
+      text: `You're invited to Delta State Dental And Health Journal Admin Panel. Click to join: ${link}`,
+      html: `<p>You've been invited to join the Delta State Dental and Health Journal Admin Panel as <strong>${role}</strong>.</p>
              <p><a href="${link}">Click here to set up your account</a></p>
              <p>This link will expire in 2 days.</p>`,
     });

@@ -2,7 +2,7 @@ const container = (title, content) => `
   <div style="font-family: Arial, sans-serif; padding: 20px; border: 1px solid #e0e0e0; border-radius: 10px; max-width: 600px; margin: auto; background-color: #f9f9f9">
     <h2 style="color: #1e3a8a;">${title}</h2>
     <p style="font-size: 15px; color: #333; line-height: 1.6">${content}</p>
-    <p style="margin-top: 30px; font-size: 14px; color: #555;">Warm regards,<br/>Delta State And Dental Health Journal Team</p>
+    <p style="margin-top: 30px; font-size: 14px; color: #555;">Warm regards,<br/>Delta State Dental And Health Journal Team</p>
   </div>
 `;
 
@@ -13,7 +13,7 @@ const submission = {
       "Submission Received",
       `Dear ${name},<br/><br/>
     We are pleased to inform you that your manuscript titled <strong>"${manuscript}"</strong> has been successfully submitted for review. Our editorial board will assess it shortly, and you will receive updates as the review process progresses.<br/><br/>
-    Thank you for choosing Delta State And Dental Health Journal to publish your work.`
+    Thank you for choosing Delta State Dental And Health Journal to publish your work.`
     ),
 };
 
