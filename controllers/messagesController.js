@@ -64,10 +64,10 @@ const replyMessage = async (req, res) => {
 
 const deleteMessage = async (req, res) => {
   try {
-    const { id } = req.params;
-    if (!id) return res.json({ error: "id is required" });
-    const result = await Message.findByIdAndDelete(id);
-    if (!result) return res.json({ error: "An error occured" });
+    const { messageId } = req.params;
+    if (!messageId) return res.status(400).json({ error: "id is required" });
+    const result = await Message.findByIdAndDelete(messageId);
+    if (!result) return res.status(400).json({ error: "An error occured" });
 
     res.json(result);
   } catch (error) {
