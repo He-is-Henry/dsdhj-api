@@ -9,4 +9,5 @@ router
   .post(verifyJWT, verifyRoles("admin"), archiveController.addNewArchive)
   .get(archiveController.getAllArchives);
 
+router.get("/current", archiveController.getCurrentIssueArchive);
 module.exports = router;

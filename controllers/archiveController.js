@@ -1,4 +1,5 @@
 const Archive = require("../models/Archive");
+const CurrentIssue = require("../models/CurrentIssue");
 
 const addNewArchive = async (req, res) => {
   const { volume, issue, file } = req.body;
@@ -19,4 +20,12 @@ const getAllArchives = async (req, res) => {
   res.json(archiveList);
 };
 
-module.exports = { addNewArchive, getAllArchives };
+const getCurrentIssueArchive = async (req, res) => {
+  const currentIssue = await CurrentIssue.findOne();
+  const { issue } = currentIssue;
+  const volume = new Date().getFullYear() - 2022;
+  const currentIssueArchive = await Archive.findOne({ issue, volume });
+  res.json(currentIssueArchive);
+};
+
+module.exports = { addNewArchive, getAllArchives, getCurrentIssueArchive };
