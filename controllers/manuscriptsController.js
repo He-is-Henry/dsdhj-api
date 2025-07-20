@@ -83,7 +83,10 @@ const getManuscripts = async (req, res) => {
   console.log(author);
   try {
     const manuscripts = await Manuscript.find({ author }).lean();
-    res.json(manuscripts);
+    const publishedManuscripts = await PublishedManuscript.find({
+      author,
+    }).lean();
+    res.json({ manuscripts, publishedManuscripts });
   } catch (error) {
     console.log(error);
   }
@@ -317,7 +320,11 @@ const publishManuscript = async (req, res) => {
       return res
         .status(400)
         .json({ error: "Can only publish paid manuscripts " });
+    manuscript.submittedOn = manuscript.createdAt;
     delete manuscript._id;
+    delete manuscript.createdAt;
+    delete manuscript.updatedAt;
+
     const publishedManuscript = await PublishedManuscript.create(manuscript);
     const deletedManuscript = await manuscriptDoc.deleteOne();
     res.json({ deleted: deletedManuscript, uploaded: publishedManuscript });
