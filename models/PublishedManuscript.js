@@ -28,7 +28,7 @@ const publishedManuscriptSchema = new schema(
 
     author: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Author",
+      ref: "User",
       required: true,
     },
 
