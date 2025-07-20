@@ -21,11 +21,25 @@ const getAllArchives = async (req, res) => {
 };
 
 const getCurrentIssueArchive = async (req, res) => {
-  const currentIssue = await CurrentIssue.findOne();
-  const { issue } = currentIssue;
-  const volume = new Date().getFullYear() - 2022;
-  const currentIssueArchive = await Archive.findOne({ issue, volume });
-  res.json(currentIssueArchive);
+  try {
+    const latestVolDoc = await Archive.findOne().sort({ volume: -1 }).limit(1);
+    if (!latestVolDoc)
+      return res.status(404).json({ error: "No archive found" });
+
+    const latestVolume = latestVolDoc.volume;
+
+    const latestIssueDoc = await Archive.findOne({ volume: latestVolume })
+      .sort({ issue: -1 })
+      .limit(1);
+
+    if (!latestIssueDoc)
+      return res.status(404).json({ error: "No issue found in latest volume" });
+
+    res.json(latestIssueDoc);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Server error" });
+  }
 };
 
 module.exports = { addNewArchive, getAllArchives, getCurrentIssueArchive };
