@@ -86,6 +86,7 @@ const getManuscripts = async (req, res) => {
     const publishedManuscripts = await PublishedManuscript.find({
       author,
     }).lean();
+    console.log({ publishedManuscripts, manuscripts });
     res.json({ manuscripts, publishedManuscripts });
   } catch (error) {
     console.log(error);
