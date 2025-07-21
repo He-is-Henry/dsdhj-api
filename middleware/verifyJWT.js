@@ -4,6 +4,8 @@ const verifyJWT = async (req, res, next) => {
   const cookies = req?.cookies;
   if (!cookies) return res.status(401).json({ error: "No cookies found" });
   const token = cookies?.jwt;
+  if (!token) return res.status(401).json({ error: "Token doesn't exist" });
+
   const user = await User.findOne({ tokens: token });
   if (!user) {
     return res
@@ -11,7 +13,6 @@ const verifyJWT = async (req, res, next) => {
       .status(401)
       .json({ error: "Token isn't in DB" });
   }
-  if (!token) return res.status(401).json({ error: "Token doesn't exist" });
   try {
     const decoded = jwt.verify(token, process.env.TOKEN_SECRET);
     if (!decoded) return res.sendStatus(401);
