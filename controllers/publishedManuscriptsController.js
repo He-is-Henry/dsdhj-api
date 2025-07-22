@@ -20,6 +20,7 @@ const getCurrentIssueManuscripts = async (req, res) => {
 
 const getManuscript = async (req, res) => {
   const { id } = req.params;
+  console.log(id);
   const manuscript = await PublishedManuscript.findById(id);
   manuscript.views = manuscript.views + 1;
   await manuscript.save();
