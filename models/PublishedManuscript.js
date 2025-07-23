@@ -42,7 +42,7 @@ const publishedManuscriptSchema = new schema(
       type: Number,
       required: true,
     },
-    submittedOn: { type: Date, required: true },
+    submittedOn: { type: Date, required: true, default: Date.now() },
     views: { type: Number, default: 0, required: true },
   },
 
