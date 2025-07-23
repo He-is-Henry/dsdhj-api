@@ -31,7 +31,13 @@ const getRecentManuscripts = async (req, res) => {
   const manuscripts = await PublishedManuscript.find().limit(3);
   res.json(manuscripts);
 };
+const getAllManuscripts = async (req, res) => {
+  const manuscripts = await PublishedManuscript.find().limit();
+  res.json(manuscripts);
+};
+
 module.exports = {
+  getAllManuscripts,
   getRecentManuscripts,
   generateCustomId,
   getCurrentIssueManuscripts,
