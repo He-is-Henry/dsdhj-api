@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const ctrl = require("../controllers/archiveController");
+const ctrl = require("../controllers/supabaseController");
 const multer = require("multer");
 
 const upload = multer({ storage: multer.memoryStorage() });
