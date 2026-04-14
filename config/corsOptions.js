@@ -1,7 +1,6 @@
 const allowList = require("./allowList");
 const corsOptions = {
   origin: (origin, callback) => {
-    console.log("Request Origin:", origin);
     if (allowList.indexOf(origin) !== -1 || !origin) {
       callback(null, true);
     } else {

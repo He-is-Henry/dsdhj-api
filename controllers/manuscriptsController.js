@@ -54,7 +54,6 @@ const addManuscript = async (req, res) => {
   try {
     const result = await Manuscript.create(manuscript);
     manuscript.id = result._id;
-    console.log("Manuscript created");
     res.json(result);
   } catch (error) {
     res.json(error.message);
@@ -80,13 +79,11 @@ const addManuscript = async (req, res) => {
 
 const getManuscripts = async (req, res) => {
   const author = req.user.id;
-  console.log(author);
   try {
     const manuscripts = await Manuscript.find({ author }).lean();
     const publishedManuscripts = await PublishedManuscript.find({
       author,
     }).lean();
-    console.log({ publishedManuscripts, manuscripts });
     res.json({ manuscripts, publishedManuscripts });
   } catch (error) {
     console.log(error);
@@ -94,7 +91,6 @@ const getManuscripts = async (req, res) => {
 };
 const getManuscript = async (req, res) => {
   const manuscript = req.manuscript;
-  console.log(!req.user.roles.includes(admin), req.access, manuscript.status);
   if (
     !req.user.roles.includes(admin) &&
     req.access !== "author" &&
@@ -134,11 +130,7 @@ const editManuscript = async (req, res) => {
   } = details;
 
   if (!manuscript) res.status(404).json({ error: "Manuscript not found" });
-  console.log(
-    manuscript.author,
-    req.user.id,
-    req.user.id === manuscript.author
-  );
+
 
   const includesPersonalInfo =
     updates.name ||
@@ -175,7 +167,6 @@ const editManuscript = async (req, res) => {
 const sendManuscriptMessage = async (req, res) => {
   const { id } = req.params;
   const { message } = req.body;
-  console.log(id);
 
   if (!message || message.trim() === "")
     return res.status(400).json({ error: "Message is required" });
@@ -308,10 +299,8 @@ const publishManuscript = async (req, res) => {
 
     const manuscriptDoc = await Manuscript.findById(id);
     const manuscript = manuscriptDoc.toObject();
-    console.log(manuscript);
     manuscript.issue = currentIssue.issue;
     manuscript.customId = await generateCustomId();
-    console.log(manuscript.customId);
     if (!manuscript.edited)
       return res.status(403).json({
         error:
@@ -329,7 +318,6 @@ const publishManuscript = async (req, res) => {
     const publishedManuscript = await PublishedManuscript.create(manuscript);
     const deletedManuscript = await manuscriptDoc.deleteOne();
     res.json({ deleted: deletedManuscript, uploaded: publishedManuscript });
-    console.log({ deleted: deletedManuscript, uploaded: publishedManuscript });
     const { subject, html } = getPublishTemplate(
       manuscript.name,
       manuscript.title,

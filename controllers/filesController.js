@@ -6,7 +6,6 @@ const cloudinary = require("cloudinary").v2;
 
 const deleteFileFromCloudinary = async (req, res) => {
   const { url, type } = req.query;
-  console.log(url, type);
 
   if (!url) return res.status(400).json({ error: "File URL is required" });
 
@@ -14,7 +13,6 @@ const deleteFileFromCloudinary = async (req, res) => {
   const trimExtension = (publicId) => publicId.replace(/\.[^/.]+$/, "");
   const safePublicId = type === "image" ? trimExtension(publicId) : publicId;
 
-  console.log({ safePublicId });
   if (!safePublicId)
     return res.status(400).json({ error: "Could not extract public_id" });
 
@@ -22,7 +20,6 @@ const deleteFileFromCloudinary = async (req, res) => {
     const result = await cloudinary.uploader.destroy(safePublicId, {
       resource_type: type || "raw",
     });
-    console.log(result);
 
     if (result.result !== "ok") {
       return res.status(500).json({ error: result.result });
@@ -61,14 +58,12 @@ const downloadFile = async (req, res) => {
 };
 
 const uploadFile = (req, res) => {
-  console.log("Trying to upload file");
   try {
     if (!req?.file) {
       return res.status(400).json({ error: "No file uploaded" });
     }
 
     const fileUrl = req.file.path;
-    console.log(fileUrl);
     const extension = req.body.extension;
 
     return res.status(200).json({ url: fileUrl, extension });
@@ -79,11 +74,8 @@ const uploadFile = (req, res) => {
 };
 const uploadAvatar = async (req, res) => {
   try {
-    console.log("Trying to upload file");
-    console.log(req.file);
     if (!req.file) return res.status(400).json({ error: "No file uploaded" });
     const fileUrl = req.file.path;
-    console.log(fileUrl);
     const user = await User.findById(req?.user?.id);
     user.avatar = fileUrl;
     await user.save();

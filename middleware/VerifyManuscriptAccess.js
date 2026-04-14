@@ -19,9 +19,7 @@ const verifyManuscriptAccess = async (req, res, next) => {
         error: "Not allowed to perform any actions on this manuscript",
       });
     }
-    console.log(manuscript.status, isPrivileged, isAuthor);
     if (req.method !== "GET") {
-      console.log("Not get");
       if (manuscript.status !== "screening" && isAuthor && !isPrivileged)
         return res.status(403).json({
           error:

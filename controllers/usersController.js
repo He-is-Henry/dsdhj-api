@@ -49,7 +49,7 @@ const login = async (req, res) => {
       process.env.TOKEN_SECRET,
       {
         expiresIn: "365d",
-      }
+      },
     );
     const previousToken = req?.cookies?.jwt;
     if (previousToken) {
@@ -67,7 +67,7 @@ const login = async (req, res) => {
     const roles = user.roles
       .map((roleId) => {
         const roleName = Object.keys(ROLES_LIST).find(
-          (key) => ROLES_LIST[key] === roleId
+          (key) => ROLES_LIST[key] === roleId,
         );
         return roleName;
       })
@@ -91,14 +91,12 @@ const login = async (req, res) => {
 
 const getCurrentUser = async (req, res) => {
   const id = req.user.id;
-  console.log(id);
   const user = await User.findById(id).select("-password -tokens").lean();
   user.roles = user.roles
     .map((roleId) => {
       const roleName = Object.keys(ROLES_LIST).find(
-        (key) => ROLES_LIST[key] === roleId
+        (key) => ROLES_LIST[key] === roleId,
       );
-      console.log(roleName);
       return roleName;
     })
     .filter(Boolean);
@@ -111,8 +109,6 @@ const logout = async (req, res) => {
     return res.status(400).json({ message: "No token" });
   }
   const user = await User.findOne({ tokens: jwt });
-  console.log("tokens: ", user.tokens);
-  console.log("JWT: ", jwt);
   user.tokens = user.tokens.filter((token) => token !== jwt);
   await user.save();
 
@@ -127,7 +123,7 @@ const getAllUsers = async (req, res) => {
     const textRoles = user.roles
       .map((roleId) => {
         const role = Object.keys(ROLES_LIST).find(
-          (key) => ROLES_LIST[key] === roleId
+          (key) => ROLES_LIST[key] === roleId,
         );
         return role;
       })
@@ -139,7 +135,6 @@ const getAllUsers = async (req, res) => {
     };
   });
 
-  console.log(userWithTextRoles);
   res.json(userWithTextRoles);
 };
 
@@ -151,7 +146,7 @@ const handleInvite = async (req, res) => {
   const rolesArray =
     role === "admin" ? [author, admin, editor] : [author, editor];
   const roleIndex = Object.keys(ROLES_LIST).find(
-    (roleName) => roleName === role
+    (roleName) => roleName === role,
   );
 
   if (!roleIndex) res.status(400).json({ error: "invalid role" });
@@ -177,7 +172,7 @@ const handleInvite = async (req, res) => {
       process.env.TOKEN_SECRET,
       {
         expiresIn: "2d",
-      }
+      },
     );
 
     const link = `${process.env.FRONTEND_URL}/invite/${inviteToken}`;
@@ -297,7 +292,7 @@ const sendResetLink = async (req, res) => {
   const resetToken = jwt.sign(
     { userId: user._id, jti },
     process.env.TOKEN_SECRET,
-    { expiresIn: "10m" }
+    { expiresIn: "10m" },
   );
   user.resetjti = jti;
   await user.save();

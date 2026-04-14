@@ -35,7 +35,6 @@ const auditReviews = async (req, res) => {
       path: "user",
       select: "firstname lastname avatar",
     });
-    console.log(reviews);
     res.json(reviews);
   } catch (err) {
     console.error("Error auditing reviews:", err);

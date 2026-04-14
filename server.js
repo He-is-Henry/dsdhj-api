@@ -18,10 +18,6 @@ app.use(cookieParser());
 
 app.use(cors(corsOptions));
 
-app.get("/ping", (req, res) => {
-  res.send(`You're sending  request from ${req.headers["user-agent"]}`);
-});
-
 app.use("/users", require("./routes/userRoutes"));
 app.use("/manuscripts", require("./routes/manuscriptRoutes"));
 app.use("/files", require("./routes/fileRoutes"));

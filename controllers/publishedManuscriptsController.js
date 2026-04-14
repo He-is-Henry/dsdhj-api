@@ -8,7 +8,6 @@ async function generateCustomId() {
     customId: { $regex: `^${prefix}` },
   });
   const serial = String(count + 1).padStart(3, "0");
-  console.log(`${prefix}${serial}`);
   return `${prefix}${serial}`;
 }
 
@@ -20,7 +19,6 @@ const getCurrentIssueManuscripts = async (req, res) => {
 
 const getManuscript = async (req, res) => {
   const { id } = req.params;
-  console.log(id);
   const manuscript = await PublishedManuscript.findById(id);
   manuscript.views = manuscript.views + 1;
   await manuscript.save();

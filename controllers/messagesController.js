@@ -28,14 +28,12 @@ const getAllMessages = async (req, res) => {
 };
 
 const replyMessage = async (req, res) => {
-  console.log("replying");
   const { messageId } = req.params;
   const { reply } = req.body;
   const user = req.user.name;
   const from = `${user} from Delta State Dental And Health Journal" <ese.anibor@domainjournals.com">`;
   try {
     const message = await Message.findById(messageId);
-    console.log(message);
     await sendMail({
       from,
       to: message.email,

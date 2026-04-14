@@ -6,7 +6,6 @@ const verifyRoles = (...allowedRoles) => {
   return async (req, res, next) => {
     if (!req?.user?.roles)
       return res.status(401).json({ error: "No user role" });
-    console.log(req.user.roles);
     const matchingRole = roles.find((role) => req.user.roles.includes(role));
     if (!matchingRole) return res.sendStatus(403);
 
