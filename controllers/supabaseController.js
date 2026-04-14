@@ -45,7 +45,7 @@ exports.getPdfUrl = (req, res) => {
 };
 
 exports.wakeSupabase = async (req, res) => {
-  const { error, ...data } = await supabase.storage
+  const { error, data } = await supabase.storage
     .from(BUCKET)
     .list("", { limit: 1 });
 
