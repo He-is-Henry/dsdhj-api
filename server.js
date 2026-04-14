@@ -31,6 +31,7 @@ app.use("/reviews", require("./routes/reviewRoutes"));
 app.use("/issues", require("./routes/currentIssueRoutes"));
 app.use("/published", require("./routes/publishedManuscriptRoutes"));
 app.use("/archives", require("./routes/archiveRoutes"));
+app.use("/supababse", require("./routes/supabaseRoutes"));
 app.get("/wake", (req, res) => {
   res.json({
     status: "awake",
