@@ -1,3 +1,4 @@
+const { createClient } = require("@supabase/supabase-js");
 const { supabase } = require("../config/supabase");
 
 const BUCKET = process.env.SUPABASE_BUCKET;
@@ -44,12 +45,28 @@ exports.getPdfUrl = (req, res) => {
   res.json({ url: data.publicUrl });
 };
 
+const supabaseAdmin = createClient(
+  process.env.SUPABASE_URL,
+  process.env.SUPABASE_SERVICE_ROLE_KEY,
+);
+
 exports.wakeSupabase = async (req, res) => {
-  const { error, data } = await supabase.storage
-    .from(BUCKET)
-    .list("", { limit: 1 });
+  try {
+    // This completely bypasses the broken anon gateway mappings and ignores all RLS rules
+    const { data, error } = await supabaseAdmin
+      .from("heartbeat")
+      .select("id")
+      .limit(1);
 
-  if (error) return res.status(500).json({ error: error.message });
+    if (error) throw error;
 
-  res.json({ success: true, data });
+    return res.json({
+      success: true,
+      message: "Database pinged successfully via admin service layer!",
+      data,
+    });
+  } catch (err) {
+    console.error("Wake administrative bypass failed:", err.message);
+    return res.status(500).json({ error: err.message });
+  }
 };
