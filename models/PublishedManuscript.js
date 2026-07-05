@@ -11,6 +11,7 @@ const publishedManuscriptSchema = new schema(
     country: { type: String, required: true },
 
     title: { type: String, required: true },
+    slug: { type: String, required: true, unique: true },
     type: { type: String, required: true },
     keywords: { type: [String], required: true, default: [] },
     abstract: { type: String, required: true },
@@ -46,10 +47,10 @@ const publishedManuscriptSchema = new schema(
     views: { type: Number, default: 0, required: true },
   },
 
-  { timestamps: true }
+  { timestamps: true },
 );
 
 module.exports = mongoose.model(
   "PublishedManuscript",
-  publishedManuscriptSchema
+  publishedManuscriptSchema,
 );

@@ -13,7 +13,7 @@ const submission = {
       "Submission Received",
       `Dear ${name},<br/><br/>
     We are pleased to inform you that your manuscript titled <strong>"${manuscript}"</strong> has been successfully submitted for review. Our editorial board will assess it shortly, and you will receive updates as the review process progresses.<br/><br/>
-    Thank you for choosing Delta State Dental And Health Journal to publish your work.`
+    Thank you for choosing Delta State Dental And Health Journal to publish your work.`,
     ),
 };
 
@@ -53,15 +53,19 @@ const statusUpdates = {
 
 const getStatusUpdateTemplate = (name, manuscript, status, manuscriptId) => {
   const entry = statusUpdates[status];
+
   const text = entry?.text?.(name, manuscript) || undefined;
+
+  const htmlContent = entry?.html
+    ? entry.html(name, manuscript, manuscriptId)
+    : entry?.text?.(name, manuscript) ||
+      `Dear ${name}, there has been an update to your manuscript titled "${manuscript}".`;
 
   return {
     subject: entry?.subject || `Update on Your Manuscript Status`,
-    html: container(
-      "Manuscript Update",
-      entry?.text(name, manuscript, manuscriptId) ||
-        `Dear ${name}, there has been an update to your manuscript titled "${manuscript}".`
-    ),
+    html: entry?.html
+      ? htmlContent
+      : container("Manuscript Update", htmlContent),
     text,
   };
 };
@@ -73,7 +77,7 @@ const getMessageTemplate = (name, manuscript, message) => {
       "Editor's Message",
       `Dear ${name},<br/><br/>
       This is a message regarding your manuscript titled <strong>"${manuscript}"</strong>.<br/><br/>
-      ${message}`
+      ${message}`,
     ),
   };
 };
@@ -85,7 +89,7 @@ const getPublishTemplate = (name, manuscript, volume, issue) => {
       "Manuscript Published",
       `Dear ${name},<br/><br/>
       We are excited to announce that your manuscript titled <strong>"${manuscript}"</strong> has been officially published in our Journal</strong>, Volume ${volume}, Issue ${issue}.<br/><br/>
-      It is now accessible to our global readership. Congratulations!, check out our currentIssue <a href="${process.env.FRONTEND_URL}/issue">here</a>`
+      It is now accessible to our global readership. Congratulations!, check out our currentIssue <a href="${process.env.FRONTEND_URL}/issue">here</a>`,
     ),
   };
 };

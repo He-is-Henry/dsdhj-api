@@ -12,3 +12,12 @@ b803a995-f687-42e4-93f0-05944bcf8b4d	[2025-07-12T16:31:49.866Z]	Failed to send e
 ea2df34b-7c86-4230-9c70-e5793c8ab611	[2025-07-12T19:02:44.459Z]	Failed to send emails:	manuscript submission	Error: connect ETIMEDOUT 64.233.166.109:468	6872b13ea24f6b116c6831b8
 454d485d-1a41-42ba-94cb-915a94b1e466	[2025-07-13T16:07:19.930Z]	Failed to send message:	Error: Unexpected socket close	68728de0c41b4d3b8d458043
 434528bb-d3e3-41ef-8959-e4f327da6358	[2025-07-13T16:08:00.172Z]	Failed to send message:	Error: Unexpected socket close	68728de0c41b4d3b8d458043
+c08eb1ab-5f9c-4630-b2e7-f06ad071534e	[2026-07-05T22:38:59.448Z]	Failed to send emails:	manuscript submission	Error: No recipients defined	undefined	
+  <div style="font-family: Arial, sans-serif; padding: 20px; border: 1px solid #e0e0e0; border-radius: 10px; max-width: 600px; margin: auto; background-color: #f9f9f9">
+    <h2 style="color: #1e3a8a;">Manuscript Published</h2>
+    <p style="font-size: 15px; color: #333; line-height: 1.6">Dear undefined,<br/><br/>
+      We are excited to announce that your manuscript titled <strong>"undefined"</strong> has been officially published in our Journal</strong>, Volume undefined, Issue undefined.<br/><br/>
+      It is now accessible to our global readership. Congratulations!, check out our currentIssue <a href="https://dsdhj.ng/issue">here</a></p>
+    <p style="margin-top: 30px; font-size: 14px; color: #555;">Warm regards,<br/>Delta State Dental And Health Journal Team</p>
+  </div>
+

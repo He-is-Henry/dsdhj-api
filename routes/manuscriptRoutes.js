@@ -14,7 +14,7 @@ router.get(
   "/all",
   verifyJWT,
   verifyRoles("admin", "editor"),
-  manuscriptsController.getAllManuscripts
+  manuscriptsController.getAllManuscripts,
 );
 router
   .route("/:id")
@@ -22,39 +22,39 @@ router
     verifyJWT,
     verifyRoles("author"),
     verifyManuscriptAccess,
-    manuscriptsController.getManuscript
+    manuscriptsController.getManuscript,
   )
   .patch(
     verifyJWT,
     verifyRoles("author"),
     verifyManuscriptAccess,
-    manuscriptsController.editManuscript
+    manuscriptsController.editManuscript,
   )
   .delete(
     verifyJWT,
     verifyRoles("author"),
     verifyManuscriptAccess,
-    manuscriptsController.deleteManuscript
+    manuscriptsController.deleteManuscript,
   );
 
 router.patch(
   "/:id/message",
   verifyJWT,
   verifyRoles("editor", "admin"),
-  manuscriptsController.sendManuscriptMessage
+  manuscriptsController.sendManuscriptMessage,
 );
 
 router.patch(
   "/review/:id",
   verifyJWT,
   verifyRoles("admin", "editor"),
-  manuscriptsController.handleManuscriptStatusUpdate
+  manuscriptsController.handleManuscriptStatusUpdate,
 );
 router.patch(
   "/publish/:id",
   verifyJWT,
   verifyRoles("admin"),
-  manuscriptsController.publishManuscript
+  manuscriptsController.publishManuscript,
 );
 
 module.exports = router;

@@ -1,5 +1,6 @@
 const CurrentIssue = require("../models/CurrentIssue");
 const PublishedManuscript = require("../models/PublishedManuscript");
+const { validateSlug, isValidSlug, slugify } = require("../uttils/slug");
 
 async function generateCustomId() {
   const year = new Date().getFullYear();
@@ -12,26 +13,100 @@ async function generateCustomId() {
 }
 
 const getCurrentIssueManuscripts = async (req, res) => {
-  const { issue } = await CurrentIssue.findOne();
-  const allManuscripts = await PublishedManuscript.find({ issue });
-  res.json(allManuscripts);
+  try {
+    const currentIssue = await CurrentIssue.findOne();
+    if (!currentIssue)
+      return res.status(404).json({ error: "No current issue set" });
+
+    const allManuscripts = await PublishedManuscript.find({
+      issue: currentIssue.issue,
+    });
+    res.json(allManuscripts);
+  } catch (error) {
+    console.error(error);
+    res
+      .status(500)
+      .json({ error: "Failed to fetch current issue manuscripts" });
+  }
 };
 
 const getManuscript = async (req, res) => {
-  const { id } = req.params;
-  const manuscript = await PublishedManuscript.findById(id);
-  manuscript.views = manuscript.views + 1;
-  await manuscript.save();
-  res.json(manuscript);
+  const { slug } = req.params;
+  try {
+    const manuscript = await PublishedManuscript.findOneAndUpdate(
+      { slug },
+      { $inc: { views: 1 } },
+      { new: true },
+    );
+    if (!manuscript)
+      return res.status(404).json({ error: "Manuscript not found" });
+
+    res.json(manuscript);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Failed to fetch manuscript" });
+  }
 };
 
 const getRecentManuscripts = async (req, res) => {
-  const manuscripts = await PublishedManuscript.find().limit(3);
-  res.json(manuscripts);
+  try {
+    const manuscripts = await PublishedManuscript.find()
+      .sort({ createdAt: -1 })
+      .limit(3);
+    res.json(manuscripts);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Failed to fetch recent manuscripts" });
+  }
 };
+
 const getAllManuscripts = async (req, res) => {
-  const manuscripts = await PublishedManuscript.find().limit();
-  res.json(manuscripts);
+  try {
+    const manuscripts = await PublishedManuscript.find();
+    res.json(manuscripts);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Failed to fetch manuscripts" });
+  }
+};
+
+const updateManuscript = async (req, res) => {
+  const { id } = req.params;
+  const { customId, views, createdAt, updatedAt, ...updates } = req.body;
+
+  try {
+    const manuscript = await PublishedManuscript.findById(id);
+    if (!manuscript)
+      return res.status(404).json({ error: "Manuscript not found" });
+
+    if (updates.slug) {
+      const validSlug = await validateSlug(updates.slug, res, id); // exclude self from uniqueness check
+      if (!validSlug) return;
+      updates.slug = validSlug;
+    }
+
+    Object.assign(manuscript, updates);
+    const result = await manuscript.save();
+    res.json(result);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Failed to update manuscript" });
+  }
+};
+
+const deleteManuscript = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const manuscript = await PublishedManuscript.findById(id);
+    if (!manuscript)
+      return res.status(404).json({ error: "Manuscript not found" });
+
+    const result = await manuscript.deleteOne();
+    res.json(result);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Failed to delete manuscript" });
+  }
 };
 
 module.exports = {
@@ -40,4 +115,6 @@ module.exports = {
   generateCustomId,
   getCurrentIssueManuscripts,
   getManuscript,
+  updateManuscript,
+  deleteManuscript,
 };

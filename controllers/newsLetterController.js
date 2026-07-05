@@ -33,6 +33,7 @@ const subscribe = async (req, res) => {
 
     res.status(201).json({ message: "Subscribed successfully" });
   } catch (err) {
+    console.error(err.message);
     res.status(500).json({ message: "Something went wrong" });
   }
 };
