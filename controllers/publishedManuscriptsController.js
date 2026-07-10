@@ -32,6 +32,7 @@ const getCurrentIssueManuscripts = async (req, res) => {
 
 const getManuscript = async (req, res) => {
   const { slug } = req.params;
+  console.log(slug);
   try {
     const manuscript = await PublishedManuscript.findOneAndUpdate(
       { slug },
